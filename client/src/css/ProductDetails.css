@@ -1,0 +1,32 @@
+.product-details{
+    display:flex;
+    gap:50px;
+    padding:50px;
+}
+
+.product-details img{
+    width:400px;
+    border-radius:10px;
+}
+
+.product-details h1{
+    margin-bottom:20px;
+}
+
+.product-details h2{
+    color:green;
+    margin-bottom:20px;
+}
+
+.product-details p{
+    margin-bottom:15px;
+}
+
+.product-details button{
+    padding:12px 30px;
+    border:none;
+    background:#4f46e5;
+    color:white;
+    cursor:pointer;
+    border-radius:5px;
+}
