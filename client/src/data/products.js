@@ -1,113 +1,173 @@
 const products = [
   {
     id: 1,
-    name: 'Classic White T-Shirt',
+    name: "Classic White T-Shirt",
+    brand: "Nike",
     price: 19.99,
-    image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80',
-    category: 'Clothing',
-    description: 'A comfortable classic white t-shirt for everyday wear.'
+    originalPrice: 29.99,
+    discount: 33,
+    rating: 4.6,
+    stock: 25,
+    image: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80",
+    category: "Clothing",
+    description: "A comfortable classic white t-shirt for everyday wear."
   },
   {
     id: 2,
-    name: 'Modern Denim Jacket',
+    name: "Modern Denim Jacket",
+    brand: "Levi's",
     price: 49.99,
-    image: 'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=800&q=80',
-    category: 'Clothing',
-    description: 'Stylish denim jacket with a modern fit.'
+    originalPrice: 69.99,
+    discount: 29,
+    rating: 4.7,
+    stock: 18,
+    image: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=800&q=80",
+    category: "Clothing",
+    description: "Stylish denim jacket with a modern fit."
   },
   {
     id: 3,
-    name: 'Minimalist Sneakers',
+    name: "Minimalist Sneakers",
+    brand: "Adidas",
     price: 39.99,
-    image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80',
-    category: 'Shoes',
-    description: 'Clean and lightweight sneakers for daily comfort.'
+    originalPrice: 59.99,
+    discount: 33,
+    rating: 4.8,
+    stock: 30,
+    image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80",
+    category: "Shoes",
+    description: "Clean and lightweight sneakers for daily comfort."
   },
   {
     id: 4,
-    name: 'Luxury Smart Watch',
+    name: "Luxury Smart Watch",
+    brand: "Apple",
     price: 129.99,
-    image: 'https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&w=800&q=80',
-    category: 'Watches',
-    description: 'A sleek smartwatch with fitness and notification features.'
+    originalPrice: 159.99,
+    discount: 19,
+    rating: 4.9,
+    stock: 10,
+    image: "https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&w=800&q=80",
+    category: "Watches",
+    description: "A sleek smartwatch with fitness and notification features."
   },
   {
     id: 5,
-    name: 'Wireless Noise-Canceling Headphones',
+    name: "Wireless Noise-Canceling Headphones",
+    brand: "Sony",
     price: 149.99,
-    image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80',
-    category: 'Electronics',
-    description: 'Premium sound quality for music, calls, and travel.'
+    originalPrice: 199.99,
+    discount: 25,
+    rating: 4.8,
+    stock: 15,
+    image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80",
+    category: "Electronics",
+    description: "Premium sound quality for music, calls, and travel."
   },
   {
     id: 6,
-    name: 'Adventure Backpack',
+    name: "Adventure Backpack",
+    brand: "Wildcraft",
     price: 59.99,
-    image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80',
-    category: 'Bags',
-    description: 'Spacious and durable backpack for school, travel, and daily use.'
+    originalPrice: 79.99,
+    discount: 25,
+    rating: 4.5,
+    stock: 20,
+    image: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80",
+    category: "Bags",
+    description: "Spacious and durable backpack for school, travel, and daily use."
   },
   {
     id: 7,
-    name: 'Harry Potter Wand Replica',
+    name: "Harry Potter Wand Replica",
+    brand: "Wizarding World",
     price: 34.99,
-    image: 'https://images.unsplash.com/photo-1600189261867-30e5ffe7b8da?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGhhcnJ5JTIwcG90dGVyJTIwc3R1ZmZ8ZW58MHx8MHx8fDA%3D',
-    category: 'Harry Potter',
-    description: 'A collectible wand inspired by the magical world of Harry Potter.'
+    originalPrice: 44.99,
+    discount: 22,
+    rating: 4.9,
+    stock: 12,
+    image: "https://images.unsplash.com/photo-1600189261867-30e5ffe7b8da?w=500&auto=format&fit=crop&q=60",
+    category: "Harry Potter",
+    description: "A collectible wand inspired by the magical world of Harry Potter."
   },
   {
     id: 8,
-    name: 'CR7 Football Jersey',
+    name: "CR7 Football Jersey",
+    brand: "Nike",
     price: 89.99,
-    image: 'https://images.unsplash.com/photo-1635710064235-081bb5c7ae77?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8Y3Jpc3RpYW5vJTIwamVyc2V5fGVufDB8fDB8fHww',
-    category: 'CR7',
-    description: 'Official-style football jersey inspired by Cristiano Ronaldo.'
+    originalPrice: 109.99,
+    discount: 18,
+    rating: 4.9,
+    stock: 16,
+    image: "https://images.unsplash.com/photo-1635710064235-081bb5c7ae77?w=500&auto=format&fit=crop&q=60",
+    category: "CR7",
+    description: "Official-style football jersey inspired by Cristiano Ronaldo."
   },
   {
     id: 9,
-    name: 'Pookie Plush Toy',
+    name: "Pookie Plush Toy",
+    brand: "FunWorld",
     price: 24.99,
-    image: 'https://plus.unsplash.com/premium_photo-1720679503128-3aae42e544fb?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cG9va2llfGVufDB8fDB8fHww',
-    category: 'Pookie',
-    description: 'Cute and cuddly plush toy for comfort and decoration.'
+    originalPrice: 34.99,
+    discount: 29,
+    rating: 4.7,
+    stock: 35,
+    image: "https://plus.unsplash.com/premium_photo-1720679503128-3aae42e544fb?w=500&auto=format&fit=crop&q=60",
+    category: "Pookie",
+    description: "Cute and cuddly plush toy for comfort and decoration."
   },
   {
     id: 10,
-    name: 'Sports Car Model',
+    name: "Sports Car Model",
+    brand: "Hot Wheels",
     price: 44.99,
-    image: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=800&q=80',
-    category: 'Cars',
-    description: 'A collectible model car for enthusiasts and display.'
+    originalPrice: 59.99,
+    discount: 25,
+    rating: 4.6,
+    stock: 22,
+    image: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=800&q=80",
+    category: "Cars",
+    description: "A collectible model car for enthusiasts and display."
   },
   {
     id: 11,
-    name: 'Best Seller Novel',
+    name: "Best Seller Novel",
+    brand: "Penguin",
     price: 14.99,
-    image: 'https://images.unsplash.com/photo-1516979187457-637abb4f9353?auto=format&fit=crop&w=800&q=80',
-    category: 'Books',
-    description: 'A gripping novel that is perfect for reading at home.'
+    originalPrice: 19.99,
+    discount: 25,
+    rating: 4.8,
+    stock: 40,
+    image: "https://images.unsplash.com/photo-1516979187457-637abb4f9353?auto=format&fit=crop&w=800&q=80",
+    category: "Books",
+    description: "A gripping novel that is perfect for reading at home."
   },
   {
     id: 12,
-    name: 'Mini Camera Drone',
+    name: "Mini Camera Drone",
+    brand: "DJI",
     price: 99.99,
-    image: 'https://images.unsplash.com/photo-1473968512647-3e447244af8f?auto=format&fit=crop&w=800&q=80',
-    category: 'Electronics',
-    description: 'Compact drone with HD camera for aerial footage.'
+    originalPrice: 129.99,
+    discount: 23,
+    rating: 4.7,
+    stock: 8,
+    image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?auto=format&fit=crop&w=800&q=80",
+    category: "Electronics",
+    description: "Compact drone with HD camera for aerial footage."
   }
 ];
 
 export const categories = [
-  'Shoes',
-  'Watches',
-  'Electronics',
-  'Clothing',
-  'Books',
-  'Bags',
-  'Harry Potter',
-  'CR7',
-  'Pookie',
-  'Cars'
+  "Shoes",
+  "Watches",
+  "Electronics",
+  "Clothing",
+  "Books",
+  "Bags",
+  "Harry Potter",
+  "CR7",
+  "Pookie",
+  "Cars"
 ];
 
 export default products;

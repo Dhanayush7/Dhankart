@@ -1,43 +1,86 @@
 .product-card{
-    background:white;
-    border-radius:10px;
+    position:relative;
+    background:#fff;
+    border-radius:15px;
     overflow:hidden;
-    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+    padding:20px;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
     transition:.3s;
+    text-align:center;
 }
 
 .product-card:hover{
-    transform:translateY(-5px);
+    transform:translateY(-8px);
+    box-shadow:0 15px 35px rgba(0,0,0,.15);
 }
 
 .product-card img{
     width:100%;
     height:220px;
     object-fit:cover;
+    transition:.3s;
 }
 
-.product-card h3{
-    padding:10px;
+.product-card:hover img{
+    transform:scale(1.08);
 }
 
-.price{
-    padding:0 10px;
-    font-size:20px;
-    color:#2e7d32;
-    font-weight:bold;
-}
-
-.product-card button{
-    width:90%;
-    margin:15px;
-    padding:12px;
-    border:none;
-    background:#4f46e5;
+.discount{
+    position:absolute;
+    top:15px;
+    left:15px;
+    background:#ef4444;
     color:white;
-    border-radius:6px;
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:13px;
+}
+
+.icons{
+    display:flex;
+    justify-content:space-between;
+    margin:15px 0;
+    font-size:20px;
     cursor:pointer;
 }
 
+.rating{
+    color:#f59e0b;
+    margin:10px 0;
+}
+
+.price-box{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    align-items:center;
+}
+
+.old-price{
+    text-decoration:line-through;
+    color:#888;
+}
+
+.product-card button{
+    width:100%;
+    margin-top:15px;
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    background:#4f46e5;
+    color:white;
+    cursor:pointer;
+    transition:.3s;
+}
+
 .product-card button:hover{
-    background:#3730a3;
+    background:#312e81;
+}
+
+.wishlist-icon {
+  cursor: pointer;
+}
+
+.wishlist-icon:hover {
+  color: red;
 }

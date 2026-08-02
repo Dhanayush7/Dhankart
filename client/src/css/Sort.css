@@ -1,0 +1,13 @@
+.sort-container{
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+    gap:10px;
+    margin:20px 40px;
+}
+
+.sort-container select{
+    padding:8px 12px;
+    border-radius:5px;
+    cursor:pointer;
+}
