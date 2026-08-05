@@ -1,20 +1,23 @@
 import { createContext, useEffect, useState } from "react";
+import API from "../services/api";
 
 export const WishlistContext = createContext();
 
 function WishlistProvider({ children }) {
-
-  const [wishlist, setWishlist] = useState(() => {
-    const saved = localStorage.getItem("wishlist");
-    return saved ? JSON.parse(saved) : [];
-  });
+  const [wishlist, setWishlist] = useState([]);
 
   useEffect(() => {
-    localStorage.setItem(
-      "wishlist",
-      JSON.stringify(wishlist)
-    );
-  }, [wishlist]);
+    const fetchWishlist = async () => {
+      try {
+        const response = await API.get("/wishlist");
+        setWishlist(response.data);
+      } catch (error) {
+        console.error("Failed to load wishlist", error);
+      }
+    };
+
+    fetchWishlist();
+  }, []);
 
   return (
     <WishlistContext.Provider

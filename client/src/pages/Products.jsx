@@ -10,19 +10,21 @@ function Products() {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
   const [sortBy, setSortBy] = useState("default");
+useEffect(() => {
+  const fetchProducts = async () => {
+    try {
+      const response = await API.get("/products");
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await API.get("/products");
-        setProducts(response.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+      console.log("API Response:", response.data);
 
-    fetchProducts();
-  }, []);
+      setProducts(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  fetchProducts();
+}, []);
 
   const filteredProducts = products.filter((product) => {
     const matchesSearch = product.name
@@ -53,7 +55,8 @@ function Products() {
     default:
       break;
   }
-
+console.log(products);
+console.log(sortedProducts);
   return (
     <>
       <SearchBar search={search} setSearch={setSearch} />
@@ -62,7 +65,10 @@ function Products() {
 
       <div className="product-grid">
         {sortedProducts.map((product) => (
-          <ProductCard key={product.id} product={product} />
+          <ProductCard
+            key={product._id || product.id}
+            product={product}
+          />
         ))}
       </div>
     </>

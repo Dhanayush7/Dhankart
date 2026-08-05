@@ -81,3 +81,23 @@
     font-size:12px;
     font-weight:bold;
 }
+
+.user-name {
+  color: #2563eb;
+  font-weight: bold;
+  margin-left: 15px;
+}
+
+.logout-btn {
+  background: crimson;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.logout-btn:hover {
+  background: darkred;
+}

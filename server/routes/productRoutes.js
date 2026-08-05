@@ -8,8 +8,9 @@ const router = express.Router();
 router.get("/", async (req, res) => {
   try {
     const productsFromDb = await Product.find();
+    console.log("Products in DB:", productsFromDb.length);
 
-    if (productsFromDb && productsFromDb.length > 0) {
+    if (productsFromDb.length > 0) {
       return res.json(productsFromDb);
     }
 
@@ -17,6 +18,45 @@ router.get("/", async (req, res) => {
   } catch (error) {
     console.error("Products fetch error:", error.message);
     return res.json(seedProducts);
+  }
+});
+
+// Get single product by ID
+router.get("/:id", async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
+
+    if (product) {
+      return res.json(product);
+    }
+
+    const fallbackProduct = seedProducts.find(
+      (item) =>
+        String(item.id) === String(req.params.id) ||
+        String(item._id) === String(req.params.id)
+    );
+
+    if (fallbackProduct) {
+      return res.json(fallbackProduct);
+    }
+
+    return res.status(404).json({
+      message: "Product not found",
+    });
+  } catch (error) {
+    const fallbackProduct = seedProducts.find(
+      (item) =>
+        String(item.id) === String(req.params.id) ||
+        String(item._id) === String(req.params.id)
+    );
+
+    if (fallbackProduct) {
+      return res.json(fallbackProduct);
+    }
+
+    return res.status(500).json({
+      message: error.message,
+    });
   }
 });
 

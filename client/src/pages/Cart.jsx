@@ -1,44 +1,52 @@
 import { useContext } from "react";
+import API from "../services/api";
 import { CartContext } from "../context/CartContext";
 
 function Cart() {
   const { cart, setCart } = useContext(CartContext);
 
-  // Increase Quantity
-  const increaseQuantity = (id) => {
-    const updatedCart = cart.map((item) =>
-      item.id === id
-        ? { ...item, quantity: (item.quantity || 1) + 1 }
-        : item
-    );
+  const increaseQuantity = async (cartItemId) => {
+    try {
+      const response = await API.post("/cart/increase", {
+        cartItemId,
+      });
 
-    setCart(updatedCart);
+      setCart(response.data.items);
+    } catch (error) {
+      console.error("Failed to increase quantity", error);
+    }
   };
 
-  // Decrease Quantity
-  const decreaseQuantity = (id) => {
-    const updatedCart = cart
-      .map((item) =>
-        item.id === id
-          ? { ...item, quantity: (item.quantity || 1) - 1 }
-          : item
-      )
-      .filter((item) => item.quantity > 0);
+  const decreaseQuantity = async (cartItemId) => {
+    try {
+      const response = await API.post("/cart/decrease", {
+        cartItemId,
+      });
 
-    setCart(updatedCart);
+      setCart(response.data.items);
+    } catch (error) {
+      console.error("Failed to decrease quantity", error);
+    }
   };
 
-  // Remove Product
-  const removeItem = (id) => {
-    const updatedCart = cart.filter((item) => item.id !== id);
-    setCart(updatedCart);
+  const removeItem = async (cartItemId) => {
+    try {
+      const response = await API.post("/cart/remove", {
+        cartItemId,
+      });
+
+      setCart(response.data.items);
+    } catch (error) {
+      console.error("Failed to remove item", error);
+    }
   };
 
   // Total Price
-  const total = cart.reduce(
-    (sum, item) => sum + item.price * (item.quantity || 1),
-    0
-  );
+  const total = cart.reduce((sum, item) => {
+    const price = Number(item.product?.price || 0);
+    const quantity = Number(item.quantity || 1);
+    return sum + price * quantity;
+  }, 0);
 
   return (
     <div style={{ padding: "30px" }}>
@@ -50,7 +58,7 @@ function Cart() {
         <>
           {cart.map((item) => (
             <div
-              key={item.id}
+              key={item._id}
               style={{
                 display: "flex",
                 gap: "20px",
@@ -62,38 +70,44 @@ function Cart() {
               }}
             >
               <img
-                src={item.image}
-                alt={item.name}
+                src={item.product?.image}
+                alt={item.product?.name}
                 width="120"
                 height="120"
                 style={{ objectFit: "cover" }}
               />
 
               <div>
-                <h2>{item.name}</h2>
+                <h2>{item.product?.name}</h2>
 
-                <h3>₹{item.price}</h3>
+                <p>
+                  <strong>Brand:</strong> {item.product?.brand}
+                </p>
 
-                <p>Quantity: {item.quantity || 1}</p>
+                <h3>₹{item.product?.price}</h3>
+
+                <p>Quantity: {item.quantity}</p>
 
                 <p>
                   Subtotal: ₹
-                  {item.price * (item.quantity || 1)}
+                  {(item.product?.price * item.quantity).toFixed(2)}
                 </p>
 
-                <button onClick={() => decreaseQuantity(item.id)}>
+                <button
+                  onClick={() => decreaseQuantity(item._id)}
+                >
                   -
                 </button>
 
                 <button
-                  onClick={() => increaseQuantity(item.id)}
+                  onClick={() => increaseQuantity(item._id)}
                   style={{ margin: "0 10px" }}
                 >
                   +
                 </button>
 
                 <button
-                  onClick={() => removeItem(item.id)}
+                  onClick={() => removeItem(item._id)}
                   style={{
                     marginLeft: "20px",
                     background: "red",
@@ -111,7 +125,7 @@ function Cart() {
 
           <hr />
 
-          <h2>Total Amount: ₹{total}</h2>
+          <h2>Total Amount: ₹{total.toFixed(2)}</h2>
         </>
       )}
     </div>

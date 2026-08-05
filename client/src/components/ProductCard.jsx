@@ -1,68 +1,130 @@
 import "../css/ProductCard.css";
 import { useContext } from "react";
-import { CartContext } from "../context/CartContext";
+import { Link } from "react-router-dom";
 import { FaHeart, FaEye, FaStar } from "react-icons/fa";
+import { addToCart } from "../services/cartService";
+import { AuthContext } from "../context/AuthContext";
+import { CartContext } from "../context/CartContext";
 import { WishlistContext } from "../context/WishlistContext";
+import {
+  addToWishlist,
+  removeFromWishlist,
+} from "../services/wishlistService";
+
 
 function ProductCard({ product }) {
-  const { cart, setCart } = useContext(CartContext);
+  const { setCart } = useContext(CartContext);
   const { wishlist, setWishlist } = useContext(WishlistContext);
+  const { user } = useContext(AuthContext);
+  const productId = product._id || product.id;
+  const userId = user?.id || user?._id;
 
-  const addToCart = () => {
-    const existingProduct = cart.find(
-      (item) => item.id === product.id
+  const handleAddToCart = async () => {
+    if (!user) {
+      alert("Please log in to add items to cart.");
+      return;
+    }
+
+    if (!userId) {
+      alert("Your session is invalid. Please log in again.");
+      return;
+    }
+
+    try {
+      const addedItem = await addToCart({
+        user: userId,
+        productId,
+        quantity: 1,
+      });
+
+      setCart((prevCart) => {
+        const existingItem = prevCart.find((item) => {
+          const itemProductId = item.product?._id || item.product || item._id;
+          return String(itemProductId) === String(productId);
+        });
+
+        if (existingItem) {
+          return prevCart.map((item) => {
+            const itemProductId = item.product?._id || item.product || item._id;
+            if (String(itemProductId) === String(productId)) {
+              return { ...item, quantity: (item.quantity || 1) + 1 };
+            }
+            return item;
+          });
+        }
+
+        return [...prevCart, { ...addedItem, product: product }];
+      });
+
+      alert("Product added to cart!");
+    } catch (error) {
+      console.error("Failed to add product:", error);
+      alert(error?.response?.data?.message || "Failed to add product.");
+    }
+  };
+
+  const toggleWishlist = async () => {
+  if (!user) {
+    alert("Please login first.");
+    return;
+  }
+
+  try {
+    const existingItem = wishlist.find(
+      (item) =>
+        String(item.product?._id || item.product) === String(productId)
     );
 
-    if (existingProduct) {
-      setCart(
-        cart.map((item) =>
-          item.id === product.id
-            ? {
-                ...item,
-                quantity: (item.quantity || 1) + 1,
-              }
-            : item
-        )
-      );
+    if (existingItem) {
+      const updatedWishlist = await removeFromWishlist(existingItem._id);
+      setWishlist(updatedWishlist);
     } else {
-      setCart([
-        ...cart,
-        {
-          ...product,
-          quantity: 1,
-        },
-      ]);
-    }
-  };
+      if (!userId) {
+        alert("Your session is invalid. Please log in again.");
+        return;
+      }
 
-  const toggleWishlist = () => {
-    const exists = wishlist.find((item) => item.id === product.id);
+      const updatedWishlist = await addToWishlist({
+        user: userId,
+        productId,
+      });
 
-    if (exists) {
-      setWishlist(wishlist.filter((item) => item.id !== product.id));
-    } else {
-      setWishlist([...wishlist, product]);
-      useEffect(() => {
-  console.log(wishlist);
-}, [wishlist]);
+      setWishlist(updatedWishlist);
     }
-  };
+  } catch (error) {
+    console.error(error);
+    alert("Wishlist update failed.");
+  }
+};
+
+  
+  const isWishlisted = wishlist.some(
+  (item) =>
+    String(item.product?._id || item.product) === String(productId)
+);
 
   return (
     <div className="product-card">
-
       <span className="discount">
         -{product.discount}%
       </span>
 
-      <img
-        src={product.image}
-        alt={product.name}
-      />
+      <Link to={`/product/${productId}`}>
+        <img
+          src={product.image}
+          alt={product.name}
+        />
+      </Link>
 
       <div className="top-icons">
-        <FaHeart onClick={toggleWishlist} className="wishlist-icon" />
-        <FaEye />
+        <FaHeart
+  onClick={toggleWishlist}
+  className={`wishlist-icon ${isWishlisted ? "active" : ""}`}
+/>
+
+        <Link to={`/product/${productId}`}>
+          <FaEye />
+        </Link>
       </div>
 
       <p className="brand">
@@ -77,7 +139,6 @@ function ProductCard({ product }) {
       </div>
 
       <div className="price-box">
-
         <span className="new-price">
           ₹{product.price}
         </span>
@@ -85,7 +146,6 @@ function ProductCard({ product }) {
         <span className="old-price">
           ₹{product.originalPrice}
         </span>
-
       </div>
 
       <p className="stock">
@@ -94,12 +154,11 @@ function ProductCard({ product }) {
           : "Out of Stock"}
       </p>
 
-      <button onClick={addToCart}>
-        Add To Cart
-      </button>
-
+      <button onClick={handleAddToCart}>
+  Add To Cart
+</button>
     </div>
   );
-}
 
+}
 export default ProductCard;

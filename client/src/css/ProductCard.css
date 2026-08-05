@@ -84,3 +84,12 @@
 .wishlist-icon:hover {
   color: red;
 }
+
+.wishlist-icon {
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.wishlist-icon.active {
+  color: red;
+}

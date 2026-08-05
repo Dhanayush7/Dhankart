@@ -11,13 +11,17 @@ function Wishlist() {
       {wishlist.length === 0 ? (
         <h2>No items in wishlist.</h2>
       ) : (
-        wishlist.map((item) => (
-          <div key={item.id}>
-            <img src={item.image} width="100" />
-            <h3>{item.name}</h3>
-            <p>₹{item.price}</p>
-          </div>
-        ))
+        wishlist.map((item) => {
+          const product = item.product || item;
+
+          return (
+            <div key={item._id || product._id || item.id}>
+              <img src={product.image} width="100" />
+              <h3>{product.name}</h3>
+              <p>₹{product.price}</p>
+            </div>
+          );
+        })
       )}
     </div>
   );

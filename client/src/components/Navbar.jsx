@@ -3,9 +3,12 @@ import { useContext } from "react";
 import { CartContext } from "../context/CartContext";
 import { FaShoppingCart, FaHeart, FaSearch } from "react-icons/fa";
 import "../css/Navbar.css";
+import { AuthContext } from "../context/AuthContext";
+
 
 function Navbar() {
   const { cart } = useContext(CartContext);
+  const { user, logout } = useContext(AuthContext);
 
   return (
     <nav className="navbar">
@@ -18,6 +21,25 @@ function Navbar() {
         <li><Link to="/products">Products</Link></li>
         <li><Link to="/">Categories</Link></li>
         <li><Link to="/">Contact</Link></li>
+        {user ? (
+  <>
+    <span className="user-name">
+      👋 {user.name}
+    </span>
+
+    <button
+      className="logout-btn"
+      onClick={logout}
+    >
+      Logout
+    </button>
+  </>
+) : (
+  <>
+    <Link to="/login">Login</Link>
+    <Link to="/register">Register</Link>
+  </>
+)}
       </ul>
 
       <div className="nav-icons">
