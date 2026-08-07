@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { registerUser } from "../services/authService";
 import "../css/Auth.css";
 
@@ -23,7 +24,7 @@ function Register() {
     e.preventDefault();
 
     if (!form.name.trim() || !form.email.trim() || !form.password.trim()) {
-      alert("Please fill in all fields.");
+      toast.warning("Please fill in all fields to create your account.");
       return;
     }
 
@@ -31,14 +32,14 @@ function Register() {
 
     try {
       await registerUser(form);
-      alert("Registration successful! Please login.");
+      toast.success("Registration successful! Please log in.");
       navigate("/login");
     } catch (error) {
       console.error(error);
-      alert(
+      toast.error(
         error.response?.data?.message ||
           error.message ||
-          "Registration failed"
+          "Registration failed. Please try again."
       );
     } finally {
       setLoading(false);

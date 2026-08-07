@@ -1,6 +1,7 @@
 import "../css/ProductCard.css";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import { FaHeart, FaEye, FaStar } from "react-icons/fa";
 import { addToCart } from "../services/cartService";
 import { AuthContext } from "../context/AuthContext";
@@ -16,56 +17,38 @@ function ProductCard({ product }) {
   const { setCart } = useContext(CartContext);
   const { wishlist, setWishlist } = useContext(WishlistContext);
   const { user } = useContext(AuthContext);
-  const productId = product._id || product.id;
+  const productId = product._id || product.legacyId || product.id;
   const userId = user?.id || user?._id;
 
   const handleAddToCart = async () => {
     if (!user) {
-      alert("Please log in to add items to cart.");
+      toast.info("Please log in to add items to your cart.");
       return;
     }
 
     if (!userId) {
-      alert("Your session is invalid. Please log in again.");
+      toast.error("Your session is invalid. Please log in again.");
       return;
     }
 
     try {
-      const addedItem = await addToCart({
+      const updatedCart = await addToCart({
         user: userId,
         productId,
         quantity: 1,
       });
 
-      setCart((prevCart) => {
-        const existingItem = prevCart.find((item) => {
-          const itemProductId = item.product?._id || item.product || item._id;
-          return String(itemProductId) === String(productId);
-        });
-
-        if (existingItem) {
-          return prevCart.map((item) => {
-            const itemProductId = item.product?._id || item.product || item._id;
-            if (String(itemProductId) === String(productId)) {
-              return { ...item, quantity: (item.quantity || 1) + 1 };
-            }
-            return item;
-          });
-        }
-
-        return [...prevCart, { ...addedItem, product: product }];
-      });
-
-      alert("Product added to cart!");
+      setCart(updatedCart);
+      toast.success("Added to cart successfully!");
     } catch (error) {
       console.error("Failed to add product:", error);
-      alert(error?.response?.data?.message || "Failed to add product.");
+      toast.error(error?.response?.data?.message || "Unable to add product to cart.");
     }
   };
 
   const toggleWishlist = async () => {
   if (!user) {
-    alert("Please login first.");
+    toast.info("Please log in first to update your wishlist.");
     return;
   }
 
@@ -80,7 +63,7 @@ function ProductCard({ product }) {
       setWishlist(updatedWishlist);
     } else {
       if (!userId) {
-        alert("Your session is invalid. Please log in again.");
+        toast.error("Your session is invalid. Please log in again.");
         return;
       }
 
@@ -93,7 +76,7 @@ function ProductCard({ product }) {
     }
   } catch (error) {
     console.error(error);
-    alert("Wishlist update failed.");
+    toast.error("Unable to update wishlist.");
   }
 };
 

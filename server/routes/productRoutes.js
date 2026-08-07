@@ -21,6 +21,31 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.post("/", async (req, res) => {
+  try {
+    const product = await Product.create(req.body);
+
+    res.status(201).json(product);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+});
+
+// Create a new product
+router.post("/", async (req, res) => {
+  try {
+    const product = await Product.create(req.body);
+
+    res.status(201).json(product);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+});
+
 // Get single product by ID
 router.get("/:id", async (req, res) => {
   try {
@@ -55,6 +80,26 @@ router.get("/:id", async (req, res) => {
     }
 
     return res.status(500).json({
+      message: error.message,
+    });
+  }
+});
+
+router.delete("/:id", async (req, res) => {
+  try {
+    const product = await Product.findByIdAndDelete(req.params.id);
+
+    if (!product) {
+      return res.status(404).json({
+        message: "Product not found",
+      });
+    }
+
+    res.json({
+      message: "Product deleted successfully",
+    });
+  } catch (error) {
+    res.status(500).json({
       message: error.message,
     });
   }

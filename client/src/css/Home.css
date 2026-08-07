@@ -1,0 +1,100 @@
+.home{
+    background:#f8fafc;
+}
+
+/* HERO */
+
+.hero{
+    height:85vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    color:white;
+
+    background:
+    linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.45)),
+    url("https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1600");
+
+    background-size:cover;
+    background-position:center;
+}
+
+.hero-content h1{
+    font-size:60px;
+    margin-bottom:20px;
+}
+
+.hero-content p{
+    font-size:22px;
+    margin-bottom:35px;
+}
+
+.hero-buttons{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+}
+
+.hero-buttons button{
+    padding:15px 35px;
+    border:none;
+    border-radius:40px;
+    font-size:18px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.shop-btn{
+    background:#2563eb;
+    color:white;
+}
+
+.shop-btn:hover{
+    transform:translateY(-5px);
+}
+
+.explore-btn{
+    background:white;
+    color:#2563eb;
+}
+
+.explore-btn:hover{
+    transform:translateY(-5px);
+}
+
+/* SECTION */
+
+.section{
+    max-width:1300px;
+    margin:80px auto;
+    padding:0 30px;
+}
+
+.section h2{
+    font-size:36px;
+    text-align:center;
+    margin-bottom:40px;
+}
+
+/* CATEGORY */
+
+.categories{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:25px;
+}
+
+.category-card{
+    background:white;
+    padding:35px;
+    border-radius:15px;
+    text-align:center;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+    transition:.3s;
+    cursor:pointer;
+}
+
+.category-card:hover{
+    transform:translateY(-8px);
+}

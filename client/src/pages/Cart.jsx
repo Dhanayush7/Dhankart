@@ -1,6 +1,8 @@
 import { useContext } from "react";
+import { Link } from "react-router-dom";
 import API from "../services/api";
 import { CartContext } from "../context/CartContext";
+import "../css/Cart.css";
 
 function Cart() {
   const { cart, setCart } = useContext(CartContext);
@@ -13,7 +15,7 @@ function Cart() {
 
       setCart(response.data.items);
     } catch (error) {
-      console.error("Failed to increase quantity", error);
+      console.error(error);
     }
   };
 
@@ -25,7 +27,7 @@ function Cart() {
 
       setCart(response.data.items);
     } catch (error) {
-      console.error("Failed to decrease quantity", error);
+      console.error(error);
     }
   };
 
@@ -37,97 +39,140 @@ function Cart() {
 
       setCart(response.data.items);
     } catch (error) {
-      console.error("Failed to remove item", error);
+      console.error(error);
     }
   };
 
-  // Total Price
   const total = cart.reduce((sum, item) => {
-    const price = Number(item.product?.price || 0);
-    const quantity = Number(item.quantity || 1);
-    return sum + price * quantity;
+    return sum + (item.product?.price || 0) * item.quantity;
   }, 0);
 
-  return (
-    <div style={{ padding: "30px" }}>
-      <h1>Your Cart</h1>
+  const shipping = total > 999 ? 0 : 99;
 
-      {cart.length === 0 ? (
-        <h2>Your cart is empty.</h2>
-      ) : (
-        <>
-          {cart.map((item) => (
+  const discount = total > 5000 ? total * 0.1 : 0;
+
+  const finalTotal = total + shipping - discount;
+
+  return (
+    <div className="cart-page">
+
+      <div className="cart-items">
+
+        <h1>🛒 Shopping Cart</h1>
+
+        {cart.length === 0 ? (
+          <h2>Your Cart is Empty</h2>
+        ) : (
+          cart.map((item) => (
             <div
+              className="cart-item"
               key={item._id}
-              style={{
-                display: "flex",
-                gap: "20px",
-                margin: "20px 0",
-                border: "1px solid #ddd",
-                padding: "15px",
-                borderRadius: "10px",
-                alignItems: "center",
-              }}
             >
               <img
                 src={item.product?.image}
                 alt={item.product?.name}
-                width="120"
-                height="120"
-                style={{ objectFit: "cover" }}
               />
 
-              <div>
+              <div className="item-details">
+
                 <h2>{item.product?.name}</h2>
 
+                <p>{item.product?.brand}</p>
+
+                <div className="item-price">
+                  ₹{item.product?.price}
+                </div>
+
+                <div className="qty-box">
+
+                  <button
+                    onClick={() =>
+                      decreaseQuantity(item._id)
+                    }
+                  >
+                    -
+                  </button>
+
+                  <span>{item.quantity}</span>
+
+                  <button
+                    onClick={() =>
+                      increaseQuantity(item._id)
+                    }
+                  >
+                    +
+                  </button>
+
+                </div>
+
                 <p>
-                  <strong>Brand:</strong> {item.product?.brand}
+                  <strong>
+                    Subtotal :
+                  </strong>{" "}
+                  ₹
+                  {(
+                    item.product?.price *
+                    item.quantity
+                  ).toFixed(2)}
                 </p>
 
-                <h3>₹{item.product?.price}</h3>
-
-                <p>Quantity: {item.quantity}</p>
-
-                <p>
-                  Subtotal: ₹
-                  {(item.product?.price * item.quantity).toFixed(2)}
-                </p>
-
                 <button
-                  onClick={() => decreaseQuantity(item._id)}
-                >
-                  -
-                </button>
-
-                <button
-                  onClick={() => increaseQuantity(item._id)}
-                  style={{ margin: "0 10px" }}
-                >
-                  +
-                </button>
-
-                <button
-                  onClick={() => removeItem(item._id)}
-                  style={{
-                    marginLeft: "20px",
-                    background: "red",
-                    color: "white",
-                    border: "none",
-                    padding: "8px 12px",
-                    cursor: "pointer",
-                  }}
+                  className="remove-btn"
+                  onClick={() =>
+                    removeItem(item._id)
+                  }
                 >
                   Remove
                 </button>
+
               </div>
+
             </div>
-          ))}
+          ))
+        )}
+
+      </div>
+
+      {cart.length > 0 && (
+        <div className="summary">
+
+          <h2>Order Summary</h2>
+
+          <div className="summary-row">
+            <span>Items Total</span>
+            <span>₹{total.toFixed(2)}</span>
+          </div>
+
+          <div className="summary-row">
+            <span>Shipping</span>
+            <span>
+              {shipping === 0 ? "FREE" : `₹${shipping}`}
+            </span>
+          </div>
+
+          <div className="summary-row">
+            <span>Discount</span>
+            <span>-₹{discount.toFixed(2)}</span>
+          </div>
 
           <hr />
 
-          <h2>Total Amount: ₹{total.toFixed(2)}</h2>
-        </>
+          <div className="summary-row total">
+            <span>Total</span>
+            <span>₹{finalTotal.toFixed(2)}</span>
+          </div>
+
+          <Link to="/checkout">
+
+            <button className="checkout-btn">
+              Proceed to Checkout →
+            </button>
+
+          </Link>
+
+        </div>
       )}
+
     </div>
   );
 }

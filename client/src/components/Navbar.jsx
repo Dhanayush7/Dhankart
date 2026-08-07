@@ -26,11 +26,14 @@ function Navbar() {
     <span className="user-name">
       👋 {user.name}
     </span>
-
+    <Link to="/profile">Profile</Link>
+    <Link to="/orders">My Orders</Link>
+<Link to="/admin">Admin</Link>
     <button
       className="logout-btn"
       onClick={logout}
     >
+    
       Logout
     </button>
   </>

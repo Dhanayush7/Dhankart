@@ -1,0 +1,73 @@
+.notfound{
+    min-height:85vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:80px;
+    padding:40px;
+    background:#f8fafc;
+}
+
+.notfound-content{
+    max-width:500px;
+}
+
+.notfound-content h1{
+    font-size:120px;
+    color:#2563eb;
+    margin-bottom:10px;
+}
+
+.notfound-content h2{
+    font-size:42px;
+    margin-bottom:20px;
+    color:#1e293b;
+}
+
+.notfound-content p{
+    color:#64748b;
+    font-size:18px;
+    line-height:1.7;
+    margin-bottom:35px;
+}
+
+.notfound-content button{
+    padding:14px 32px;
+    border:none;
+    border-radius:10px;
+    background:#2563eb;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.notfound-content button:hover{
+    transform:translateY(-4px);
+    background:#1d4ed8;
+}
+
+.notfound-image img{
+    width:450px;
+}
+
+@media(max-width:900px){
+
+.notfound{
+    flex-direction:column-reverse;
+    text-align:center;
+}
+
+.notfound-image img{
+    width:300px;
+}
+
+.notfound-content h1{
+    font-size:90px;
+}
+
+.notfound-content h2{
+    font-size:32px;
+}
+
+}

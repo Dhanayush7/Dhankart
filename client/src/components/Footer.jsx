@@ -1,40 +1,108 @@
 import "../css/Footer.css";
+import {
+  FaFacebook,
+  FaInstagram,
+  FaTwitter,
+  FaLinkedin,
+  FaMapMarkerAlt,
+  FaPhone,
+  FaEnvelope,
+} from "react-icons/fa";
+
+import { Link } from "react-router-dom";
 
 function Footer() {
   return (
     <footer className="footer">
 
-      <div className="footer-column">
-        <h2>DhanKart</h2>
+      <div className="footer-container">
 
-        <p>
-          Your one-stop destination for
-          premium shopping.
-        </p>
+        <div className="footer-section">
+
+          <h2 className="footer-logo">
+            🛍️ Dhan<span>Kart</span>
+          </h2>
+
+          <p>
+            Dhankart is your one-stop destination for
+            premium fashion, electronics, footwear,
+            accessories and lifestyle products at the
+            best prices.
+          </p>
+
+        </div>
+
+        <div className="footer-section">
+
+          <h3>Quick Links</h3>
+
+          <Link to="/">Home</Link>
+          <Link to="/products">Products</Link>
+          <Link to="/cart">Cart</Link>
+          <Link to="/wishlist">Wishlist</Link>
+
+        </div>
+
+        <div className="footer-section">
+
+          <h3>Customer Care</h3>
+
+          <a href="#">Help Center</a>
+          <a href="#">Returns</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms & Conditions</a>
+
+        </div>
+
+        <div className="footer-section">
+
+          <h3>Contact</h3>
+
+          <p>
+            <FaMapMarkerAlt />
+            Mathura, Uttar Pradesh
+          </p>
+
+          <p>
+            <FaPhone />
+            +91 XXXXX XXXXX
+          </p>
+
+          <p>
+            <FaEnvelope />
+            support@dhankart.com
+          </p>
+
+          <div className="social-icons">
+
+            <a href="#">
+              <FaFacebook />
+            </a>
+
+            <a href="#">
+              <FaInstagram />
+            </a>
+
+            <a href="#">
+              <FaTwitter />
+            </a>
+
+            <a href="#">
+              <FaLinkedin />
+            </a>
+
+          </div>
+
+        </div>
+
       </div>
 
-      <div className="footer-column">
-        <h3>Quick Links</h3>
+      <hr />
 
-        <p>Home</p>
-        <p>Products</p>
-        <p>Categories</p>
-        <p>Contact</p>
-      </div>
+      <div className="footer-bottom">
 
-      <div className="footer-column">
-        <h3>Support</h3>
+        © 2026 Dhankart. All Rights Reserved.
 
-        <p>FAQs</p>
-        <p>Privacy Policy</p>
-        <p>Terms & Conditions</p>
-      </div>
-
-      <div className="footer-column">
-        <h3>Contact</h3>
-
-        <p>📧 support@dhankart.com</p>
-        <p>📞 +91 7147638799</p>
       </div>
 
     </footer>

@@ -35,7 +35,6 @@ router.post("/", async (req, res) => {
 
     const numericProductId = Number(productId);
     if (!Number.isNaN(numericProductId)) {
-      query.push({ id: numericProductId });
       query.push({ legacyId: numericProductId });
     }
 
@@ -55,7 +54,7 @@ router.post("/", async (req, res) => {
 
     const exists = await Wishlist.findOne({
       user,
-      product: productId,
+      product: product._id,
     });
 
     if (exists) {
@@ -65,7 +64,7 @@ router.post("/", async (req, res) => {
 
     await Wishlist.create({
       user,
-      product: productId,
+      product: product._id,
     });
 
     const updatedWishlist = await Wishlist.find().populate("product");

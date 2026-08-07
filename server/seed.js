@@ -12,9 +12,14 @@ await connectDB();
 try {
   await Product.deleteMany();
 
-  await Product.insertMany(products);
+  await Product.insertMany(
+    products.map((product) => ({
+      ...product,
+      legacyId: product.id,
+    }))
+  );
 
-  console.log("✅ Products inserted successfully!");
+  console.log("✅ Products inserted successfully with legacyId!");
 
   process.exit();
 } catch (error) {

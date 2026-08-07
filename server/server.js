@@ -6,6 +6,8 @@ import productRoutes from "./routes/productRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import cartRoutes from "./routes/cartRoutes.js";
 import wishlistRoutes from "./routes/wishlistRoutes.js";
+import orderRoutes from "./routes/orderRoutes.js";
+import profileRoutes from "./routes/profileRoutes.js";
 dotenv.config();
 
 connectDB();
@@ -17,7 +19,8 @@ app.use(express.json());
 app.use("/api/wishlist", wishlistRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/cart", cartRoutes);
-
+app.use("/api/orders", orderRoutes);
+app.use("/api/profile", profileRoutes);
 app.get("/", (req, res) => {
   res.send("🚀 DhanKart Backend is Running...");
 });

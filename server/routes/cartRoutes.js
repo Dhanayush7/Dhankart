@@ -1,9 +1,44 @@
 import express from "express";
+import mongoose from "mongoose";
 import Cart from "../models/Cart.js";
 import Product from "../models/Product.js";
+import seedProducts from "../data/products.js";
 
 const router = express.Router();
 
+const resolveProduct = async (productId) => {
+  if (!productId) return null;
+
+  const stringId = String(productId);
+  const isObjectId =
+    typeof productId === "string" &&
+    stringId.length === 24 &&
+    mongoose.Types.ObjectId.isValid(stringId);
+
+  if (isObjectId) {
+    const product = await Product.findById(stringId);
+    if (product) return product;
+  }
+
+  const numericProductId = Number(productId);
+  if (!Number.isNaN(numericProductId)) {
+    let product = await Product.findOne({ legacyId: numericProductId });
+    if (product) return product;
+
+    const seedProduct = seedProducts.find(
+      (item) => item.id === numericProductId || item.legacyId === numericProductId
+    );
+
+    if (seedProduct) {
+      return await Product.create({
+        ...seedProduct,
+        legacyId: numericProductId,
+      });
+    }
+  }
+
+  return null;
+};
 
 // ======================
 // GET ALL CART ITEMS
@@ -35,7 +70,7 @@ router.post("/", async (req, res) => {
       });
     }
 
-    const product = await Product.findById(productId);
+    const product = await resolveProduct(productId);
 
     if (!product) {
       return res.status(404).json({
@@ -45,7 +80,7 @@ router.post("/", async (req, res) => {
 
     let cartItem = await Cart.findOne({
       user,
-      product: productId,
+      product: product._id,
     });
 
     if (cartItem) {
@@ -54,7 +89,7 @@ router.post("/", async (req, res) => {
     } else {
       cartItem = await Cart.create({
         user,
-        product: productId,
+        product: product._id,
         quantity: quantity || 1,
       });
     }

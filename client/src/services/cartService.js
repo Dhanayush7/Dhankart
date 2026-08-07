@@ -2,7 +2,7 @@ import API from "./api";
 
 export const addToCart = async (cartData) => {
   const response = await API.post("/cart", cartData);
-  return response.data;
+  return response.data.items;
 };
 
 export const getCart = async () => {
