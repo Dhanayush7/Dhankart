@@ -1,7 +1,8 @@
 import { Routes, Route } from "react-router-dom";
-import orderSuccess from "./pages/orderSuccess";
+
 import Navbar from "./components/Navbar";
 import ProtectedRoute from "./components/ProtectedRoute";
+
 import Orders from "./pages/Orders";
 import Home from "./pages/Home";
 import Products from "./pages/Products";
@@ -13,6 +14,8 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import NotFound from "./pages/NotFound";
 import Profile from "./pages/Profile";
+import OrderSuccess from "./pages/OrderSuccess";
+
 import Admin from "./pages/Admin";
 import AdminProducts from "./pages/AdminProducts";
 import AddProduct from "./pages/AddProducts";
@@ -25,73 +28,43 @@ function App() {
       <Navbar />
 
       <Routes>
-        {/* Public Routes */}
-        <Route
-  path="/order-success"
-  element={
-    <ProtectedRoute>
-      <OrderSuccess />
-    </ProtectedRoute>
-  }
-/>
-<Route
-  path="/profile"
-  element={
-    <ProtectedRoute>
-      <Profile />
-    </ProtectedRoute>
-  }
-/>
-<Route
-  path="/admin"
-  element={
-    <ProtectedRoute>
-      <Admin />
-    </ProtectedRoute>
-  }
-/>
-<Route
-  path="/admin/products"
-  element={
-    <ProtectedRoute>
-      <AdminProducts />
-    </ProtectedRoute>
-  }
-/>
-<Route
-  path="/admin/add-product"
-  element={
-    <ProtectedRoute>
-      <AddProduct />
-    </ProtectedRoute>
-  }
-/>
-<Route
-  path="/admin/orders"
-  element={
-    <ProtectedRoute>
-      <AdminOrders />
-    </ProtectedRoute>
-  }
-/>
-<Route
-  path="/admin"
-  element={<AdminDashboard />}
-/>
+
+        {/* ================= PUBLIC ROUTES ================= */}
+
         <Route path="/" element={<Home />} />
+
         <Route path="/products" element={<Products />} />
-        <Route path="/product/:id" element={<ProductDetails />} />
+
+        <Route
+          path="/product/:id"
+          element={<ProductDetails />}
+        />
+
         <Route path="/login" element={<Login />} />
+
         <Route path="/register" element={<Register />} />
-<Route
-  path="/orders"
-  element={
-    <ProtectedRoute>
-      <Orders />
-    </ProtectedRoute>
-  }
-/>
-        {/* Protected Routes */}
+
+
+        {/* ================= PROTECTED ROUTES ================= */}
+
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/orders"
+          element={
+            <ProtectedRoute>
+              <Orders />
+            </ProtectedRoute>
+          }
+        />
+
         <Route
           path="/cart"
           element={
@@ -119,8 +92,71 @@ function App() {
           }
         />
 
-        {/* 404 */}
-        <Route path="*" element={<NotFound />} />
+        <Route
+          path="/order-success"
+          element={
+            <ProtectedRoute>
+              <OrderSuccess />
+            </ProtectedRoute>
+          }
+        />
+
+
+        {/* ================= ADMIN ROUTES ================= */}
+
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute>
+              <Admin />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/dashboard"
+          element={
+            <ProtectedRoute>
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/products"
+          element={
+            <ProtectedRoute>
+              <AdminProducts />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/add-product"
+          element={
+            <ProtectedRoute>
+              <AddProduct />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/orders"
+          element={
+            <ProtectedRoute>
+              <AdminOrders />
+            </ProtectedRoute>
+          }
+        />
+
+
+        {/* ================= 404 ================= */}
+
+        <Route
+          path="*"
+          element={<NotFound />}
+        />
+
       </Routes>
     </>
   );
