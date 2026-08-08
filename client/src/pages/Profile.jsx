@@ -1,118 +1,105 @@
 import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../context/AuthContext";
-import { getProfile, updateProfile } from "../services/profileService";
+import { FaUser, FaPhone, FaMapMarkerAlt, FaEnvelope } from "react-icons/fa";
 import { toast } from "react-toastify";
+
+import { AuthContext } from "../context/AuthContext";
+import API from "../services/api";
+import "../css/Profile.css";
 
 function Profile() {
   const { user } = useContext(AuthContext);
-
-  const [form, setForm] = useState({
-    name: "",
-    phone: "",
-    address: "",
-    email: "",
-  });
+  const [formData, setFormData] = useState({ name: "", email: "", phone: "", address: "" });
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
 
   useEffect(() => {
-    const loadProfile = async () => {
-      try {
-        const data = await getProfile(user._id);
+    const fetchProfile = async () => {
+      const userId = user?._id || user?.id;
+      if (!userId) {
+        setLoading(false);
+        return;
+      }
 
-        setForm({
-          name: data.name || "",
-          email: data.email || "",
-          phone: data.phone || "",
-          address: data.address || "",
+      try {
+        const response = await API.get(`/profile/${userId}`);
+        setFormData({
+          name: response.data.name || "",
+          email: response.data.email || "",
+          phone: response.data.phone || "",
+          address: response.data.address || "",
         });
       } catch (error) {
-        console.error(error);
+        console.error("Profile fetch error:", error);
+        toast.error("Unable to load profile.");
+      } finally {
+        setLoading(false);
       }
     };
 
-    if (user?._id) {
-      loadProfile();
-    }
+    fetchProfile();
   }, [user]);
 
-  const handleChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
+  const handleChange = (event) => {
+    setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
-  const handleSave = async () => {
-    try {
-      await updateProfile(user._id, {
-        name: form.name,
-        phone: form.phone,
-        address: form.address,
-      });
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const userId = user?._id || user?.id;
 
-      toast.success("Profile Updated Successfully");
+    if (!userId) {
+      toast.error("User session not found.");
+      return;
+    }
+
+    try {
+      setSaving(true);
+      await API.put(`/profile/${userId}`, {
+        name: formData.name,
+        phone: formData.phone,
+        address: formData.address,
+      });
+      toast.success("Profile updated successfully!");
     } catch (error) {
-      console.error(error);
-      toast.error("Failed to update profile");
+      console.error("Profile update error:", error);
+      toast.error(error?.response?.data?.message || "Unable to update profile.");
+    } finally {
+      setSaving(false);
     }
   };
 
+  if (loading) return <div className="profile-loading">Loading profile...</div>;
+
   return (
-    <div
-      style={{
-        maxWidth: "600px",
-        margin: "40px auto",
-        padding: "30px",
-        border: "1px solid #ddd",
-        borderRadius: "10px",
-      }}
-    >
-      <h1>My Profile</h1>
+    <main className="profile-page">
+      <section className="profile-card">
+        <header className="profile-header">
+          <div className="profile-avatar"><FaUser /></div>
+          <div><h1>My Profile</h1><p>Manage your personal information</p></div>
+        </header>
 
-      <br />
-
-      <label>Name</label>
-
-      <input
-        name="name"
-        value={form.name}
-        onChange={handleChange}
-        style={{ width: "100%", padding: "10px", marginBottom: "15px" }}
-      />
-
-      <label>Email</label>
-
-      <input
-        value={form.email}
-        disabled
-        style={{ width: "100%", padding: "10px", marginBottom: "15px" }}
-      />
-
-      <label>Phone</label>
-
-      <input
-        name="phone"
-        value={form.phone}
-        onChange={handleChange}
-        style={{ width: "100%", padding: "10px", marginBottom: "15px" }}
-      />
-
-      <label>Address</label>
-
-      <textarea
-        name="address"
-        value={form.address}
-        onChange={handleChange}
-        rows="4"
-        style={{ width: "100%", padding: "10px" }}
-      />
-
-      <br />
-      <br />
-
-      <button onClick={handleSave}>
-        Save Changes
-      </button>
-    </div>
+        <form onSubmit={handleSubmit}>
+          <div className="profile-field">
+            <label htmlFor="profile-name">Full Name</label>
+            <div className="profile-input"><FaUser /><input id="profile-name" type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Enter your name" required /></div>
+          </div>
+          <div className="profile-field">
+            <label htmlFor="profile-email">Email Address</label>
+            <div className="profile-input disabled"><FaEnvelope /><input id="profile-email" type="email" value={formData.email} disabled /></div>
+            <small>Email cannot be changed.</small>
+          </div>
+          <div className="profile-field">
+            <label htmlFor="profile-phone">Phone Number</label>
+            <div className="profile-input"><FaPhone /><input id="profile-phone" type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="Enter phone number" /></div>
+          </div>
+          <div className="profile-field">
+            <label htmlFor="profile-address">Address</label>
+            <div className="profile-input textarea"><FaMapMarkerAlt /><textarea id="profile-address" name="address" value={formData.address} onChange={handleChange} placeholder="Enter your address" /></div>
+          </div>
+          <button className="save-profile-btn" type="submit" disabled={saving}>{saving ? "Saving..." : "Save Changes"}</button>
+        </form>
+      </section>
+    </main>
   );
 }
 

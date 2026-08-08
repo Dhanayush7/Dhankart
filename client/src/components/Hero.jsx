@@ -31,9 +31,9 @@ function Hero() {
           </Link>
 
           <Link to="/products">
-            <button className="explore-btn">
-              Explore Products
-            </button>
+            <Link to="/products" className="explore-btn">
+  Explore Products
+</Link>
           </Link>
 
         </div>

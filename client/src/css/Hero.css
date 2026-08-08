@@ -1,174 +1,372 @@
-.hero{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+/* =========================
+   HERO SECTION
+========================= */
 
-    padding:90px 8%;
-    min-height:90vh;
+.hero {
+  min-height: 80vh;
 
-    background:
-    linear-gradient(135deg,#2563eb,#1e3a8a);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-    color:white;
+  gap: 60px;
 
-    overflow:hidden;
+  padding: 80px 7%;
+
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(37, 99, 235, 0.12),
+      transparent 35%
+    ),
+    linear-gradient(
+      135deg,
+      #eef2ff,
+      #ffffff
+    );
+
+  overflow: hidden;
 }
 
-.hero-content{
-    flex:1;
-    max-width:600px;
+
+/* =========================
+   HERO CONTENT
+========================= */
+
+.hero-content {
+  max-width: 580px;
+
+  flex: 1;
 }
 
-.hero-tag{
-    display:inline-block;
+.hero-tag {
+  display: inline-block;
 
-    background:rgba(255,255,255,.15);
+  padding: 8px 18px;
 
-    backdrop-filter:blur(10px);
+  margin-bottom: 22px;
 
-    padding:10px 22px;
+  border-radius: 30px;
 
-    border-radius:50px;
+  background: #2563eb;
 
-    margin-bottom:25px;
+  color: white;
 
-    font-weight:600;
+  font-size: 14px;
+
+  font-weight: 700;
+
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.2);
 }
 
-.hero h1{
-    font-size:65px;
-    line-height:1.1;
-    margin-bottom:25px;
+
+/* =========================
+   HEADING
+========================= */
+
+.hero h1 {
+  margin: 0 0 22px;
+
+  color: #111827;
+
+  font-size: clamp(42px, 5vw, 68px);
+
+  line-height: 1.05;
+
+  font-weight: 800;
+
+  letter-spacing: -2px;
 }
 
-.hero h1 span{
-    color:#fbbf24;
+
+/* =========================
+   DESCRIPTION
+========================= */
+
+.hero p {
+  max-width: 540px;
+
+  margin: 0 0 32px;
+
+  color: #64748b;
+
+  font-size: 18px;
+
+  line-height: 1.7;
 }
 
-.hero p{
-    font-size:20px;
-    color:#e2e8f0;
-    line-height:1.7;
-    margin-bottom:40px;
+
+/* =========================
+   BUTTONS
+========================= */
+
+.hero-buttons {
+  display: flex;
+
+  align-items: center;
+
+  gap: 15px;
 }
 
-.hero-buttons{
-    display:flex;
-    gap:20px;
+.hero-buttons a {
+  text-decoration: none;
 }
 
 .shop-btn,
-.explore-btn{
+.explore-btn {
+  min-width: 140px;
 
-    padding:16px 34px;
+  padding: 14px 28px;
 
-    border:none;
+  border-radius: 9px;
 
-    border-radius:50px;
+  font-size: 16px;
 
-    cursor:pointer;
+  font-weight: 700;
 
-    font-size:17px;
+  cursor: pointer;
 
-    font-weight:600;
-
-    transition:.35s;
+  transition: 0.3s;
 }
 
-.shop-btn{
 
-    background:white;
+/* SHOP BUTTON */
 
-    color:#2563eb;
+.shop-btn {
+  border: 2px solid #2563eb;
+
+  background: #2563eb;
+
+  color: white;
+
+  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);
 }
 
-.shop-btn:hover{
+.shop-btn:hover {
+  background: #1d4ed8;
 
-    transform:translateY(-5px);
+  border-color: #1d4ed8;
 
-    box-shadow:0 12px 30px rgba(0,0,0,.25);
+  transform: translateY(-3px);
+
+  box-shadow: 0 15px 25px rgba(37, 99, 235, 0.25);
 }
 
-.explore-btn{
 
-    background:transparent;
+/* EXPLORE BUTTON */
 
-    color:white;
+.explore-btn {
+  border: 2px solid #2563eb;
 
-    border:2px solid white;
+  background: white;
+
+  color: #2563eb;
 }
 
-.explore-btn:hover{
+.explore-btn:hover {
+  background: #2563eb;
 
-    background:white;
+  color: white;
 
-    color:#2563eb;
-
-    transform:translateY(-5px);
+  transform: translateY(-3px);
 }
 
-.hero-image{
-    flex:1;
-    display:flex;
-    justify-content:center;
+
+/* =========================
+   HERO IMAGE
+========================= */
+
+.hero-image {
+  flex: 1;
+
+  display: flex;
+
+  justify-content: center;
+
+  position: relative;
 }
 
-.hero-image img{
+.hero-image::before {
+  content: "";
 
-    width:550px;
+  position: absolute;
 
-    border-radius:25px;
+  width: 420px;
+  height: 420px;
 
-    box-shadow:0 25px 60px rgba(0,0,0,.35);
+  border-radius: 50%;
 
-    transition:.4s;
+  background: rgba(37, 99, 235, 0.08);
+
+  z-index: 0;
 }
 
-.hero-image img:hover{
+.hero-image img {
+  position: relative;
 
-    transform:scale(1.06) rotate(-2deg);
+  z-index: 1;
+
+  width: min(520px, 100%);
+
+  height: 430px;
+
+  object-fit: cover;
+
+  border-radius: 25px;
+
+  box-shadow:
+    0 25px 50px rgba(0, 0, 0, 0.16);
+
+  transition: 0.4s;
 }
 
-/* Responsive */
+.hero-image img:hover {
+  transform: scale(1.03) rotate(1deg);
+}
 
-@media(max-width:900px){
 
-.hero{
+/* =========================
+   TABLET
+========================= */
 
-flex-direction:column;
+@media (max-width: 1000px) {
 
-text-align:center;
+  .hero {
+    gap: 35px;
 
-padding:60px 25px;
+    padding: 60px 5%;
+  }
+
+  .hero h1 {
+    font-size: 50px;
+  }
+
+  .hero p {
+    font-size: 16px;
+  }
+
+  .hero-image img {
+    height: 360px;
+  }
+
+  .hero-image::before {
+    width: 330px;
+    height: 330px;
+  }
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 750px) {
+
+  .hero {
+    min-height: auto;
+
+    flex-direction: column;
+
+    text-align: center;
+
+    padding: 55px 20px 60px;
+
+    gap: 45px;
+  }
+
+  .hero-content {
+    max-width: 650px;
+  }
+
+  .hero-tag {
+    font-size: 13px;
+
+    padding: 7px 15px;
+  }
+
+  .hero h1 {
+    font-size: clamp(40px, 10vw, 54px);
+
+    letter-spacing: -1px;
+  }
+
+  .hero p {
+    margin-left: auto;
+    margin-right: auto;
+
+    font-size: 16px;
+
+    line-height: 1.6;
+  }
+
+  .hero-buttons {
+    justify-content: center;
+  }
+
+  .hero-image {
+    width: 100%;
+  }
+
+  .hero-image img {
+    width: 100%;
+
+    max-width: 500px;
+
+    height: 330px;
+
+    border-radius: 20px;
+  }
 
 }
 
-.hero h1{
 
-font-size:45px;
+/* =========================
+   SMALL MOBILE
+========================= */
+
+@media (max-width: 450px) {
+
+  .hero {
+    padding: 45px 16px 50px;
+
+    gap: 35px;
+  }
+
+  .hero h1 {
+    font-size: 39px;
+  }
+
+  .hero p {
+    font-size: 15px;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+
+    width: 100%;
+  }
+
+  .shop-btn,
+  .explore-btn {
+    width: 100%;
+  }
+
+  .hero-image img {
+    height: 270px;
+  }
+
+  .hero-image::before {
+    width: 250px;
+    height: 250px;
+  }
 
 }
 
-.hero-buttons{
+.hero-buttons .explore-btn {
+  display: inline-flex;
 
-justify-content:center;
+  align-items: center;
+  justify-content: center;
 
-flex-wrap:wrap;
-
-}
-
-.hero-image{
-
-margin-top:40px;
-
-}
-
-.hero-image img{
-
-width:100%;
-
-max-width:420px;
-
-}
-
+  text-decoration: none;
 }

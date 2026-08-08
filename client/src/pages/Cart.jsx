@@ -1,7 +1,10 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { FaTrash, FaMinus, FaPlus, FaArrowRight } from "react-icons/fa";
+
 import API from "../services/api";
 import { CartContext } from "../context/CartContext";
+
 import "../css/Cart.css";
 
 function Cart() {
@@ -15,7 +18,7 @@ function Cart() {
 
       setCart(response.data.items);
     } catch (error) {
-      console.error(error);
+      console.error("Failed to increase quantity:", error);
     }
   };
 
@@ -27,7 +30,7 @@ function Cart() {
 
       setCart(response.data.items);
     } catch (error) {
-      console.error(error);
+      console.error("Failed to decrease quantity:", error);
     }
   };
 
@@ -39,139 +42,279 @@ function Cart() {
 
       setCart(response.data.items);
     } catch (error) {
-      console.error(error);
+      console.error("Failed to remove item:", error);
     }
   };
 
+  /* =========================
+     CALCULATIONS
+  ========================= */
+
   const total = cart.reduce((sum, item) => {
-    return sum + (item.product?.price || 0) * item.quantity;
+    const price = Number(item.product?.price || 0);
+    const quantity = Number(item.quantity || 0);
+
+    return sum + price * quantity;
   }, 0);
 
-  const shipping = total > 999 ? 0 : 99;
+  const shipping = total === 0 ? 0 : total > 999 ? 0 : 99;
 
   const discount = total > 5000 ? total * 0.1 : 0;
 
   const finalTotal = total + shipping - discount;
 
+  /* =========================
+     EMPTY CART
+  ========================= */
+
+  if (cart.length === 0) {
+    return (
+      <div className="empty-cart">
+
+        <div className="empty-cart-icon">
+          🛒
+        </div>
+
+        <h1>Your Cart is Empty</h1>
+
+        <p>
+          Looks like you haven't added anything to your cart yet.
+        </p>
+
+        <Link to="/products" className="continue-shopping">
+          Start Shopping
+          <FaArrowRight />
+        </Link>
+
+      </div>
+    );
+  }
+
   return (
     <div className="cart-page">
 
-      <div className="cart-items">
+      {/* =========================
+          HEADER
+      ========================= */}
 
-        <h1>🛒 Shopping Cart</h1>
+      <div className="cart-header">
 
-        {cart.length === 0 ? (
-          <h2>Your Cart is Empty</h2>
-        ) : (
-          cart.map((item) => (
-            <div
-              className="cart-item"
-              key={item._id}
-            >
-              <img
-                src={item.product?.image}
-                alt={item.product?.name}
-              />
+        <div>
+          <h1>Shopping Cart</h1>
 
-              <div className="item-details">
+          <p>
+            {cart.length}{" "}
+            {cart.length === 1 ? "item" : "items"} in your cart
+          </p>
+        </div>
 
-                <h2>{item.product?.name}</h2>
-
-                <p>{item.product?.brand}</p>
-
-                <div className="item-price">
-                  ₹{item.product?.price}
-                </div>
-
-                <div className="qty-box">
-
-                  <button
-                    onClick={() =>
-                      decreaseQuantity(item._id)
-                    }
-                  >
-                    -
-                  </button>
-
-                  <span>{item.quantity}</span>
-
-                  <button
-                    onClick={() =>
-                      increaseQuantity(item._id)
-                    }
-                  >
-                    +
-                  </button>
-
-                </div>
-
-                <p>
-                  <strong>
-                    Subtotal :
-                  </strong>{" "}
-                  ₹
-                  {(
-                    item.product?.price *
-                    item.quantity
-                  ).toFixed(2)}
-                </p>
-
-                <button
-                  className="remove-btn"
-                  onClick={() =>
-                    removeItem(item._id)
-                  }
-                >
-                  Remove
-                </button>
-
-              </div>
-
-            </div>
-          ))
-        )}
+        <Link to="/products" className="continue-link">
+          ← Continue Shopping
+        </Link>
 
       </div>
 
-      {cart.length > 0 && (
+
+      <div className="cart-layout">
+
+        {/* =========================
+            CART ITEMS
+        ========================= */}
+
+        <div className="cart-items">
+
+          {cart.map((item) => {
+
+            const price = Number(
+              item.product?.price || 0
+            );
+
+            const quantity = Number(
+              item.quantity || 0
+            );
+
+            const subtotal = price * quantity;
+
+            return (
+              <div
+                className="cart-item"
+                key={item._id}
+              >
+
+                {/* IMAGE */}
+
+                <Link
+                  to={`/product/${item.product?._id}`}
+                  className="cart-image"
+                >
+                  <img
+                    src={item.product?.image}
+                    alt={item.product?.name}
+                  />
+                </Link>
+
+
+                {/* DETAILS */}
+
+                <div className="cart-item-details">
+
+                  <p className="cart-brand">
+                    {item.product?.brand}
+                  </p>
+
+                  <Link
+                    to={`/product/${item.product?._id}`}
+                    className="cart-product-name"
+                  >
+                    {item.product?.name}
+                  </Link>
+
+                  <p className="cart-price">
+                    ₹{price.toFixed(2)}
+                  </p>
+
+
+                  {/* QUANTITY */}
+
+                  <div className="cart-bottom">
+
+                    <div className="quantity-control">
+
+                      <button
+                        onClick={() =>
+                          decreaseQuantity(item._id)
+                        }
+                        disabled={quantity <= 1}
+                      >
+                        <FaMinus />
+                      </button>
+
+                      <span>
+                        {quantity}
+                      </span>
+
+                      <button
+                        onClick={() =>
+                          increaseQuantity(item._id)
+                        }
+                      >
+                        <FaPlus />
+                      </button>
+
+                    </div>
+
+
+                    <button
+                      className="remove-btn"
+                      onClick={() =>
+                        removeItem(item._id)
+                      }
+                    >
+                      <FaTrash />
+
+                      <span>Remove</span>
+                    </button>
+
+                  </div>
+
+                </div>
+
+
+                {/* SUBTOTAL */}
+
+                <div className="cart-subtotal">
+
+                  <span>Subtotal</span>
+
+                  <strong>
+                    ₹{subtotal.toFixed(2)}
+                  </strong>
+
+                </div>
+
+              </div>
+            );
+          })}
+
+        </div>
+
+
+        {/* =========================
+            ORDER SUMMARY
+        ========================= */}
+
         <div className="summary">
 
           <h2>Order Summary</h2>
 
+
           <div className="summary-row">
+
             <span>Items Total</span>
-            <span>₹{total.toFixed(2)}</span>
-          </div>
 
-          <div className="summary-row">
-            <span>Shipping</span>
             <span>
-              {shipping === 0 ? "FREE" : `₹${shipping}`}
+              ₹{total.toFixed(2)}
             </span>
+
           </div>
+
 
           <div className="summary-row">
+
+            <span>Shipping</span>
+
+            <span className={shipping === 0 ? "free" : ""}>
+              {shipping === 0
+                ? "FREE"
+                : `₹${shipping.toFixed(2)}`}
+            </span>
+
+          </div>
+
+
+          <div className="summary-row">
+
             <span>Discount</span>
-            <span>-₹{discount.toFixed(2)}</span>
+
+            <span className="discount-value">
+              -₹{discount.toFixed(2)}
+            </span>
+
           </div>
 
-          <hr />
 
-          <div className="summary-row total">
+          <div className="summary-divider"></div>
+
+
+          <div className="summary-row final-total">
+
             <span>Total</span>
-            <span>₹{finalTotal.toFixed(2)}</span>
+
+            <strong>
+              ₹{finalTotal.toFixed(2)}
+            </strong>
+
           </div>
 
-          <Link to="/checkout">
 
-            <button className="checkout-btn">
-              Proceed to Checkout →
-            </button>
+          <Link
+            to="/checkout"
+            className="checkout-btn"
+          >
+            Proceed to Checkout
+
+            <FaArrowRight />
 
           </Link>
 
+
+          <div className="secure-message">
+            🔒 Secure checkout
+          </div>
+
         </div>
-      )}
+
+      </div>
 
     </div>
   );

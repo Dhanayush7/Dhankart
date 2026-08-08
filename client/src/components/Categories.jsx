@@ -1,22 +1,21 @@
+import { Link } from "react-router-dom";
+import { categories } from "../data/products";
 import "../css/Categories.css";
 
 function Categories() {
-  const categories = [
-    "Fashion",
-    "Electronics",
-    "Shoes",
-    "Watches"
-  ];
-
   return (
     <section className="categories">
       <h2>Shop by Category</h2>
 
       <div className="category-grid">
         {categories.map((category) => (
-          <div className="category-card" key={category}>
+          <Link
+            className="category-card"
+            key={category}
+            to={`/products?category=${encodeURIComponent(category)}`}
+          >
             {category}
-          </div>
+          </Link>
         ))}
       </div>
     </section>

@@ -1,13 +1,6 @@
 import "../css/CategoryFilter.css";
 
-function CategoryFilter({ category, setCategory }) {
-  const categories = [
-    "All",
-    "Shoes",
-    "Electronics",
-    "Fashion",
-    "Books"
-  ];
+function CategoryFilter({ categories, category, setCategory }) {
 
   return (
     <div className="category-filter">

@@ -13,3 +13,10 @@
     border-radius:8px;
     outline:none;
 }
+
+.products-empty-state{
+    margin: 40px auto;
+    color: #64748b;
+    font-size: 16px;
+    text-align: center;
+}

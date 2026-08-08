@@ -8,10 +8,13 @@ const products = [
     discount: 33,
     rating: 4.6,
     stock: 25,
-    image: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80",
+    image:
+      "https://media.istockphoto.com/id/1303978937/photo/white-sneaker-on-a-blue-gradient-background-mens-fashion-sport-shoe-sneakers-lifestyle.webp?a=1&b=1&s=612x612&w=0&k=20&c=ULRau7DB-Wrr9i0GZbQoDXSDjDRDc4H-hfIFWgL5PIY=",
     category: "Clothing",
-    description: "A comfortable classic white t-shirt for everyday wear."
+    description:
+      "A comfortable classic white t-shirt for everyday wear.",
   },
+
   {
     id: 2,
     name: "Modern Denim Jacket",
@@ -21,10 +24,13 @@ const products = [
     discount: 29,
     rating: 4.7,
     stock: 18,
-    image: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=800&q=80",
+    image:
+      "https://images.pexels.com/photos/1082529/pexels-photo-1082529.jpeg?auto=compress&cs=tinysrgb&w=800",
     category: "Clothing",
-    description: "Stylish denim jacket with a modern fit."
+    description:
+      "Stylish denim jacket with a modern fit.",
   },
+
   {
     id: 3,
     name: "Minimalist Sneakers",
@@ -34,10 +40,13 @@ const products = [
     discount: 33,
     rating: 4.8,
     stock: 30,
-    image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80",
+    image:
+      "https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&w=800",
     category: "Shoes",
-    description: "Clean and lightweight sneakers for daily comfort."
+    description:
+      "Clean and lightweight sneakers for daily comfort.",
   },
+
   {
     id: 4,
     name: "Luxury Smart Watch",
@@ -47,10 +56,13 @@ const products = [
     discount: 19,
     rating: 4.9,
     stock: 10,
-    image: "https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&w=800&q=80",
+    image:
+      "https://images.pexels.com/photos/437037/pexels-photo-437037.jpeg?auto=compress&cs=tinysrgb&w=800",
     category: "Watches",
-    description: "A sleek smartwatch with fitness and notification features."
+    description:
+      "A sleek smartwatch with fitness and notification features.",
   },
+
   {
     id: 5,
     name: "Wireless Noise-Canceling Headphones",
@@ -60,10 +72,13 @@ const products = [
     discount: 25,
     rating: 4.8,
     stock: 15,
-    image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80",
+    image:
+      "https://images.pexels.com/photos/3394650/pexels-photo-3394650.jpeg?auto=compress&cs=tinysrgb&w=800",
     category: "Electronics",
-    description: "Premium sound quality for music, calls, and travel."
+    description:
+      "Premium sound quality for music, calls, and travel.",
   },
+
   {
     id: 6,
     name: "Adventure Backpack",
@@ -73,10 +88,13 @@ const products = [
     discount: 25,
     rating: 4.5,
     stock: 20,
-    image: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80",
+    image:
+      "https://images.pexels.com/photos/2905238/pexels-photo-2905238.jpeg?auto=compress&cs=tinysrgb&w=800",
     category: "Bags",
-    description: "Spacious and durable backpack for school, travel, and daily use."
+    description:
+      "Spacious and durable backpack for school, travel, and daily use.",
   },
+
   {
     id: 7,
     name: "Harry Potter Wand Replica",
@@ -86,10 +104,13 @@ const products = [
     discount: 22,
     rating: 4.9,
     stock: 12,
-    image: "https://images.unsplash.com/photo-1600189261867-30e5ffe7b8da?w=500&auto=format&fit=crop&q=60",
+    image:
+     "https://images.unsplash.com/photo-1600189261900-da2183219c28?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     category: "Harry Potter",
-    description: "A collectible wand inspired by the magical world of Harry Potter."
+    description:
+      "A collectible wand inspired by the magical world of Harry Potter.",
   },
+
   {
     id: 8,
     name: "CR7 Football Jersey",
@@ -99,10 +120,13 @@ const products = [
     discount: 18,
     rating: 4.9,
     stock: 16,
-    image: "https://images.unsplash.com/photo-1635710064235-081bb5c7ae77?w=500&auto=format&fit=crop&q=60",
+    image:
+      "https://images.unsplash.com/photo-1778454288878-9b3c0c975589?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cm9uYWxkb3xlbnwwfHwwfHx8MA%3D%3D",
     category: "CR7",
-    description: "Official-style football jersey inspired by Cristiano Ronaldo."
+    description:
+      "Official-style football jersey inspired by Cristiano Ronaldo.",
   },
+
   {
     id: 9,
     name: "Pookie Plush Toy",
@@ -112,10 +136,13 @@ const products = [
     discount: 29,
     rating: 4.7,
     stock: 35,
-    image: "https://plus.unsplash.com/premium_photo-1720679503128-3aae42e544fb?w=500&auto=format&fit=crop&q=60",
+    image:
+      "https://images.pexels.com/photos/3662667/pexels-photo-3662667.jpeg?auto=compress&cs=tinysrgb&w=800",
     category: "Pookie",
-    description: "Cute and cuddly plush toy for comfort and decoration."
+    description:
+      "Cute and cuddly plush toy for comfort and decoration.",
   },
+
   {
     id: 10,
     name: "Sports Car Model",
@@ -125,10 +152,13 @@ const products = [
     discount: 25,
     rating: 4.6,
     stock: 22,
-    image: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=800&q=80",
+    image:
+      "https://images.pexels.com/photos/358070/pexels-photo-358070.jpeg?auto=compress&cs=tinysrgb&w=800",
     category: "Cars",
-    description: "A collectible model car for enthusiasts and display."
+    description:
+      "A collectible model car for enthusiasts and display.",
   },
+
   {
     id: 11,
     name: "Best Seller Novel",
@@ -138,10 +168,13 @@ const products = [
     discount: 25,
     rating: 4.8,
     stock: 40,
-    image: "https://images.unsplash.com/photo-1516979187457-637abb4f9353?auto=format&fit=crop&w=800&q=80",
+    image:
+      "https://images.unsplash.com/photo-1610116306796-6fea9f4fae38?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bm92ZWx8ZW58MHx8MHx8fDA%3D",
     category: "Books",
-    description: "A gripping novel that is perfect for reading at home."
+    description:
+      "A gripping novel that is perfect for reading at home.",
   },
+
   {
     id: 12,
     name: "Mini Camera Drone",
@@ -151,10 +184,12 @@ const products = [
     discount: 23,
     rating: 4.7,
     stock: 8,
-    image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?auto=format&fit=crop&w=800&q=80",
+    image:
+      "https://images.pexels.com/photos/442587/pexels-photo-442587.jpeg?auto=compress&cs=tinysrgb&w=800",
     category: "Electronics",
-    description: "Compact drone with HD camera for aerial footage."
-  }
+    description:
+      "Compact drone with HD camera for aerial footage.",
+  },
 ];
 
 export const categories = [
@@ -167,7 +202,7 @@ export const categories = [
   "Harry Potter",
   "CR7",
   "Pookie",
-  "Cars"
+  "Cars",
 ];
 
 export default products;

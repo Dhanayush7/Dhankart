@@ -17,7 +17,7 @@ import Admin from "./pages/Admin";
 import AdminProducts from "./pages/AdminProducts";
 import AddProduct from "./pages/AddProducts";
 import AdminOrders from "./pages/AdminOrders";
-
+import AdminDashboard from "./pages/AdminDashboard";
 
 function App() {
   return (
@@ -73,6 +73,10 @@ function App() {
       <AdminOrders />
     </ProtectedRoute>
   }
+/>
+<Route
+  path="/admin"
+  element={<AdminDashboard />}
 />
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<Products />} />

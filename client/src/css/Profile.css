@@ -1,0 +1,21 @@
+.profile-page { display: flex; justify-content: center; min-height: calc(100vh - 70px); padding: 60px 20px; background: linear-gradient(135deg, #eff6ff, #fff); }
+.profile-card { width: 100%; max-width: 750px; padding: 40px; border: 1px solid #e2e8f0; border-radius: 20px; background: #fff; box-shadow: 0 15px 40px rgba(0, 0, 0, .08); }
+.profile-header { display: flex; align-items: center; gap: 20px; margin-bottom: 30px; padding-bottom: 30px; border-bottom: 1px solid #e2e8f0; }
+.profile-avatar { display: flex; align-items: center; justify-content: center; width: 75px; height: 75px; flex: 0 0 auto; border-radius: 50%; background: #eff6ff; color: #2563eb; font-size: 30px; }
+.profile-header h1 { margin: 0 0 5px; color: #0f172a; font-size: 30px; }
+.profile-header p { margin: 0; color: #64748b; }
+.profile-field { margin-bottom: 22px; }
+.profile-field label { display: block; margin-bottom: 8px; color: #334155; font-weight: 700; }
+.profile-input { display: flex; align-items: flex-start; gap: 12px; padding: 13px 15px; border: 1px solid #cbd5e1; border-radius: 10px; background: #f8fafc; transition: .3s; }
+.profile-input:focus-within { border-color: #2563eb; background: #fff; box-shadow: 0 0 0 3px rgba(37, 99, 235, .1); }
+.profile-input svg { flex: 0 0 auto; margin-top: 3px; color: #64748b; }
+.profile-input input, .profile-input textarea { width: 100%; border: 0; outline: 0; background: transparent; color: #1e293b; font-size: 15px; }
+.profile-input textarea { min-height: 100px; resize: vertical; }
+.profile-input.disabled { background: #f1f5f9; }
+.profile-input input:disabled { color: #64748b; cursor: not-allowed; }
+.profile-field small { display: block; margin-top: 6px; color: #94a3b8; }
+.save-profile-btn { width: 100%; padding: 14px; border: 0; border-radius: 10px; background: #2563eb; color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; transition: .3s; }
+.save-profile-btn:hover { background: #1d4ed8; transform: translateY(-2px); }
+.save-profile-btn:disabled { background: #94a3b8; cursor: not-allowed; transform: none; }
+.profile-loading { display: flex; align-items: center; justify-content: center; min-height: 70vh; color: #64748b; font-size: 20px; }
+@media (max-width: 600px) { .profile-page { padding: 30px 15px; } .profile-card { padding: 25px 20px; } .profile-header { align-items: flex-start; } .profile-avatar { width: 60px; height: 60px; font-size: 24px; } .profile-header h1 { font-size: 25px; } }

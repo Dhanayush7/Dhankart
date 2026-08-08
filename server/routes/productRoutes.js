@@ -10,11 +10,25 @@ router.get("/", async (req, res) => {
     const productsFromDb = await Product.find();
     console.log("Products in DB:", productsFromDb.length);
 
-    if (productsFromDb.length > 0) {
-      return res.json(productsFromDb);
-    }
+    const databaseProductsByLegacyId = new Map(
+      productsFromDb
+        .filter((product) => product.legacyId !== null && product.legacyId !== undefined)
+        .map((product) => [product.legacyId, product])
+    );
 
-    return res.json(seedProducts);
+    const catalogProducts = seedProducts.map((product) => {
+      const databaseProduct = databaseProductsByLegacyId.get(product.id);
+
+      return databaseProduct
+        ? { ...databaseProduct.toObject(), image: product.image }
+        : product;
+    });
+
+    const customProducts = productsFromDb.filter(
+      (product) => product.legacyId === null || product.legacyId === undefined
+    );
+
+    return res.json([...catalogProducts, ...customProducts]);
   } catch (error) {
     console.error("Products fetch error:", error.message);
     return res.json(seedProducts);
