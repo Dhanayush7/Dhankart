@@ -12,7 +12,8 @@ function Hero() {
         </span>
 
         <h1>
-          Upgrade Your <span>Shopping</span><br />
+          Upgrade Your <span>Shopping</span>
+          <br />
           Experience Today
         </h1>
 
@@ -24,16 +25,12 @@ function Hero() {
 
         <div className="hero-buttons">
 
-          <Link to="/products">
-            <button className="shop-btn">
-              Shop Now →
-            </button>
+          <Link to="/products" className="shop-btn">
+            Shop Now →
           </Link>
 
-          <Link to="/products">
-            <Link to="/products" className="explore-btn">
-  Explore Products
-</Link>
+          <Link to="/products" className="explore-btn">
+            Explore Products
           </Link>
 
         </div>
