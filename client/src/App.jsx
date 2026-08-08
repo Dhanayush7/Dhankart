@@ -14,7 +14,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import NotFound from "./pages/NotFound";
 import Profile from "./pages/Profile";
-import OrderSuccess from "./pages/OrderSuccess";
+import orderSuccess from "./pages/orderSuccess";
 
 import Admin from "./pages/Admin";
 import AdminProducts from "./pages/AdminProducts";
@@ -96,7 +96,7 @@ function App() {
           path="/order-success"
           element={
             <ProtectedRoute>
-              <OrderSuccess />
+              <orderSuccess />
             </ProtectedRoute>
           }
         />

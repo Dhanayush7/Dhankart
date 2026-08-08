@@ -50,5 +50,5 @@ function OrderSuccess() {
     </div>
   );
 }
-//changed
+
 export default OrderSuccess;
