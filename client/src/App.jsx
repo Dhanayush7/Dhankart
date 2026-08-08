@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import OrderSuccess from "./pages/OrderSuccess";
+import orderSuccess from "./pages/orderSuccess";
 import Navbar from "./components/Navbar";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Orders from "./pages/Orders";
